@@ -1,0 +1,26 @@
+module VgaImageDriver(
+    input   i_VGA_CLOCK,
+    input   i_DRAW_ENABLE,
+    input   [$clog2(p_H_VISIBLE_AREA) - 1: 0]  i_SCANLINE_X,
+    input   [$clog2(p_V_VISIBLE_AREA) - 1: 0]  i_SCANLINE_Y,
+
+    output  [7:0]   o_VGA_RED,
+    output  [7:0]   o_VGA_GREEN,
+    output  [7:0]   o_VGA_BLUE
+);
+    parameter   p_H_VISIBLE_AREA    = 640;
+    parameter   p_V_VISIBLE_AREA    = 480;
+
+    always @(posedge i_VGA_CLOCK)
+        if (i_DRAW_ENABLE)
+        begin
+            if (i_SCANLINE_X > 0)
+                if (i_SCANLINE_Y > 0)
+                begin
+                end
+        end
+
+    assign o_VGA_RED = i_DRAW_ENABLE ? 8'hff : 0;
+    assign o_VGA_GREEN = i_DRAW_ENABLE ? 8'hff : 0;
+    assign o_VGA_BLUE = i_DRAW_ENABLE ? 8'hff : 0;
+endmodule
