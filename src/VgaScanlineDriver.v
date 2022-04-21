@@ -47,8 +47,8 @@ module VgaScanlineDriver(
 
     // Assign enable signal
     assign o_DRAW_ENABLE =
-        ((r_COUNTER_X >= p_H_FRONT_PORCH) && (r_COUNTER_X < p_H_FRONT_PORCH + p_H_VISIBLE_AREA - 1))
-            && ((r_COUNTER_Y >= p_V_FRONT_PORCH) && (r_COUNTER_Y < p_V_FRONT_PORCH + p_V_VISIBLE_AREA - 1));
+        ((r_COUNTER_X >= p_H_FRONT_PORCH) && (r_COUNTER_X < p_H_FRONT_PORCH + p_H_VISIBLE_AREA))
+            && ((r_COUNTER_Y >= p_V_FRONT_PORCH) && (r_COUNTER_Y < p_V_FRONT_PORCH + p_V_VISIBLE_AREA));
 
     assign o_SCANLINE_X = r_COUNTER_X[$clog2(p_H_VISIBLE_AREA) - 1:0] - p_H_FRONT_PORCH;
     assign o_SCANLINE_Y = r_COUNTER_Y[$clog2(p_V_VISIBLE_AREA) - 1:0] - p_V_FRONT_PORCH;

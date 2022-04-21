@@ -16,27 +16,27 @@ module Top(
     output  [7:0]   o_VGA_BLUE,
 
     // VGA synchronization signals
+    output          o_VGA_CLK,
     output          o_VGA_HSYNC,
-    output          o_VGA_VSYNC
+    output          o_VGA_VSYNC,
+
+    // Debugging signals
+    output          o_DRAW_ENABLE
 );
+    ClockDivider #(2) divider(i_CLK, o_VGA_CLK);
 
-    wire            w_VGA_CLOCK;
-
-    ClockDivider #(2) divider(i_CLK, w_VGA_CLOCK);
-
-    wire                            w_DRAW_ENABLE;
-    wire    [$clog2(640) - 1: 0]    w_SCANLINE_X;
-    wire    [$clog2(480) - 1: 0]    w_SCANLINE_Y;
+    wire    [$clog2(640) - 1: 0]    w_SCANLINE_X /*verilator public*/;
+    wire    [$clog2(480) - 1: 0]    w_SCANLINE_Y /*verilator public*/;
 
     VgaScanlineDriver scanline_driver(
-        w_VGA_CLOCK,
+        o_VGA_CLK,
         o_VGA_HSYNC, o_VGA_VSYNC,
-        w_DRAW_ENABLE,
+        o_DRAW_ENABLE,
         w_SCANLINE_X, w_SCANLINE_Y
     );
 
     VgaImageDriver image_driver(
-        w_DRAW_ENABLE,
+        o_DRAW_ENABLE,
         w_SCANLINE_X, w_SCANLINE_Y,
         o_VGA_RED, o_VGA_GREEN, o_VGA_BLUE
     );

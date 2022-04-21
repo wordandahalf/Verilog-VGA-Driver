@@ -12,9 +12,9 @@ module VgaImageDriver(
 
     wire    [7:0]   w_IMAGE_DATA [p_H_VISIBLE_AREA * p_V_VISIBLE_AREA * 3 - 1:0];
 
-    ImageMultiplexer multiplexer(0, w_IMAGE_DATA);
+    ImageMultiplexer multiplexer(2, w_IMAGE_DATA);
 
-    assign o_VGA_RED    = i_DRAW_ENABLE ? w_IMAGE_DATA[(i_SCANLINE_Y * p_H_VISIBLE_AREA) + (i_SCANLINE_X * 3) + 0] : 8'b0;
-    assign o_VGA_GREEN  = i_DRAW_ENABLE ? w_IMAGE_DATA[(i_SCANLINE_Y * p_H_VISIBLE_AREA) + (i_SCANLINE_X * 3) + 1] : 8'b0;
-    assign o_VGA_BLUE   = i_DRAW_ENABLE ? w_IMAGE_DATA[(i_SCANLINE_Y * p_H_VISIBLE_AREA) + (i_SCANLINE_X * 3) + 2] : 8'b0;
+    assign o_VGA_RED    = i_DRAW_ENABLE ? w_IMAGE_DATA[(3 * i_SCANLINE_Y * p_H_VISIBLE_AREA) + (i_SCANLINE_X * 3) + 0] : 8'b0;
+    assign o_VGA_GREEN  = i_DRAW_ENABLE ? w_IMAGE_DATA[(3 * i_SCANLINE_Y * p_H_VISIBLE_AREA) + (i_SCANLINE_X * 3) + 1] : 8'b0;
+    assign o_VGA_BLUE   = i_DRAW_ENABLE ? w_IMAGE_DATA[(3 * i_SCANLINE_Y * p_H_VISIBLE_AREA) + (i_SCANLINE_X * 3) + 2] : 8'b0;
 endmodule
